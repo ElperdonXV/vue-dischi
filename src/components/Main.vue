@@ -1,13 +1,12 @@
 <template>
     <main>
-        <div class="container">
-            <div class="row albums">
-                <div :key="index" v-for="(album, index) in albums" class="col-3 p-3 album">
-                    <img :src="album.poster" alt="">
-                    <h2>{{album.title}}</h2>
-                    <h3>{{album.author}}</h3>
-                    <h4>{{album.year}}</h4>
-                </div>
+        <div class="container p-5">
+            <div v-if="cards" class="row row-cols-5 cards g-3">
+                <Card
+                v-for="(card, index) in cards"
+                :key="index"
+                :card="card"
+                />
             </div>
         </div>
     </main>
@@ -15,18 +14,22 @@
 
 <script>
 import axios from 'axios';
+import Card from './Card.vue';
 export default {
     name: 'Main',
+    components: {
+        Card,
+    },
     data (){
         return{
-            albums : null,
+            cards : null,
         }
     },
     mounted(){
         axios.get('https://flynn.boolean.careers/exercises/api/array/music')
         .then((result) =>{
-            this.albums = result.data.response;
-            console.log(this.albums);
+            this.cards = result.data.response;
+            console.log(this.cards);
 
         })
         .catch((error) =>{
@@ -36,6 +39,11 @@ export default {
 }
 </script>
 
-<style>
-
+<style lang="scss" scoped>
+    main{
+        background-color: #1E2D3B;
+    }
+    img{
+        max-width: 100%;
+    }
 </style>
