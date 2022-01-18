@@ -1,8 +1,12 @@
 <template>
   <div class="search">
       <h3>Choose a genre: </h3>
-      <select name="search" id="">
-          <option value="Rock">Rock</option>
+      <select name="search" v-model="optionValue" @change="$emit('emitSearch', optionValue)" id="search">
+          <option value="all">All</option>
+          <option value="rock">Rock</option>
+          <option value="metal">Metal</option>
+          <option value="pop">Pop</option>
+          <option value="jazz">Jazz</option>
       </select>
   </div>
 </template>
@@ -12,15 +16,9 @@ export default {
     name: 'Search',
     data (){
         return {
-            optionValue: '',
+            optionValue: "all",
         };
     },
-    methods: {
-        sendOption(){
-            console.log(this.optionValue);
-            this.$emit('emitSearch', this.optionValue);
-        }
-    }
 }
 </script>
 

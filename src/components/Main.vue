@@ -28,21 +28,35 @@ export default {
     data (){
         return{
             cards : null,
-            option: '',
-        }
+            option: null,
+            queryApi: "https://flynn.boolean.careers/exercises/api/array/music",
+        };
     },
-    mounted(){
+    created(){
+        this.getAxios()
     },
     methods: {
-        getOption(text){
-            this.option = text;
-            axios.get('https://flynn.boolean.careers/exercises/api/array/music')
+        getAxios: function(){
+            axios.get(this.queryApi)
             .then((result) =>{
                 this.cards = result.data.response;
+                this.option = result.data.response;
             })
             .catch((error) =>{
-            console.log(error);
+                console.log(error);
             })
+        },
+
+        getOption: function(text){
+            this.cards = this.option;
+            if (text !="all"){
+                let newArray = this.cards.filter(element =>{
+                    if (element.genre.toLowerCase().includes(text.toLowerCase())){
+                        return true;
+                    }
+                })
+                this.cards = newArray;
+            }
         }
     }
 }
