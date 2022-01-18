@@ -19,7 +19,7 @@ export default {
         padding: 20px;
         img{
             height: 40px;
-            margin-bottom: 1em;
+            //margin-bottom: 1em;
         }
     }
 </style>
